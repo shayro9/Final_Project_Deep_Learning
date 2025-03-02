@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Final_Project_Deep_Learning.iml" filepath="$PROJECT_DIR$/.idea/Final_Project_Deep_Learning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../School/Deep/hw1_w25/.idea/hw1_w25.iml" filepath="$PROJECT_DIR$/../../School/Deep/hw1_w25/.idea/hw1_w25.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../School/Deep/hw2_2024/.idea/hw2_2024.iml" filepath="$PROJECT_DIR$/../../School/Deep/hw2_2024/.idea/hw2_2024.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../School/Deep/hw3_w25/hw3_w25/.idea/hw3_w25.iml" filepath="$PROJECT_DIR$/../../School/Deep/hw3_w25/hw3_w25/.idea/hw3_w25.iml" />
+    </modules>
+  </component>
+</project>
