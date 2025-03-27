@@ -1,0 +1,66 @@
+*** SLURM BATCH JOB 'CLR_Run' STARTING ***
+*** Activating environment final_project ***
+Set, CIFAR10, Parameters: epochs-20 | batch-32 | lr-0.001 | class lr-0.001
+----------Train------------
+Epoch: 1, Loss: 0.5700022989977032
+Epoch: 2, Loss: 0.5561324280904899
+Epoch: 3, Loss: 0.553701256324326
+Epoch: 4, Loss: 0.5522561458710977
+Epoch: 5, Loss: 0.5513994936066919
+Epoch: 6, Loss: 0.5509876495325
+Epoch: 7, Loss: 0.5504524206573312
+Epoch: 8, Loss: 0.5500769452806014
+Epoch: 9, Loss: 0.549778209052379
+Epoch: 10, Loss: 0.5495332379881459
+Epoch: 11, Loss: 0.5493535481479196
+Epoch: 12, Loss: 0.5491419493694158
+Epoch: 13, Loss: 0.5489660556620123
+Epoch: 14, Loss: 0.5488668982030183
+Epoch: 15, Loss: 0.5487737351892547
+Epoch: 16, Loss: 0.5486525378062386
+Epoch: 17, Loss: 0.5485514940815607
+Epoch: 18, Loss: 0.5484983895484372
+Epoch: 19, Loss: 0.548393984400356
+Epoch: 20, Loss: 0.548324271540483
+------Train Classifier------------
+Classifier - Epoch: 1, Loss: 1.6282166503608304, Accuracy: 42.34555057618438
+Test - Epoch: 1, Loss: 1.4513832399368287, Accuracy: 48.870000000000005
+Classifier - Epoch: 2, Loss: 1.4414895620678818, Accuracy: 49.00568181818182
+Test - Epoch: 2, Loss: 1.3837509714126588, Accuracy: 51.55
+Classifier - Epoch: 3, Loss: 1.3643491613116978, Accuracy: 51.99263764404609
+Test - Epoch: 3, Loss: 1.3413901000976562, Accuracy: 52.900000000000006
+Classifier - Epoch: 4, Loss: 1.3138170289626958, Accuracy: 53.751200384122924
+Test - Epoch: 4, Loss: 1.3179961513519287, Accuracy: 53.42
+Classifier - Epoch: 5, Loss: 1.2665895539194003, Accuracy: 55.53177016645326
+Test - Epoch: 5, Loss: 1.28351595287323, Accuracy: 54.510000000000005
+Classifier - Epoch: 6, Loss: 1.2294146073612453, Accuracy: 56.95622599231754
+Test - Epoch: 6, Loss: 1.298857877922058, Accuracy: 54.43
+Classifier - Epoch: 7, Loss: 1.1968916220716874, Accuracy: 57.93854033290653
+Test - Epoch: 7, Loss: 1.2817510274887085, Accuracy: 54.84
+Classifier - Epoch: 8, Loss: 1.1689080383805093, Accuracy: 58.842829705505764
+Test - Epoch: 8, Loss: 1.2641272304534912, Accuracy: 55.28999999999999
+Classifier - Epoch: 9, Loss: 1.1424942867932948, Accuracy: 59.81714148527529
+Test - Epoch: 9, Loss: 1.2572839319229125, Accuracy: 55.96
+Classifier - Epoch: 10, Loss: 1.1182479024238685, Accuracy: 60.745438540332906
+Test - Epoch: 10, Loss: 1.2531582857131958, Accuracy: 56.03
+Classifier - Epoch: 11, Loss: 1.0923177918917697, Accuracy: 61.851792573623555
+Test - Epoch: 11, Loss: 1.2996455877304076, Accuracy: 54.400000000000006
+Classifier - Epoch: 12, Loss: 1.072445595539181, Accuracy: 62.23591549295775
+Test - Epoch: 12, Loss: 1.279848017692566, Accuracy: 55.300000000000004
+Classifier - Epoch: 13, Loss: 1.0532505118816367, Accuracy: 63.008162612035854
+Test - Epoch: 13, Loss: 1.2554186895370483, Accuracy: 55.83
+Classifier - Epoch: 14, Loss: 1.0335856198157911, Accuracy: 63.622359154929576
+Test - Epoch: 14, Loss: 1.2414806941986083, Accuracy: 56.07
+Classifier - Epoch: 15, Loss: 1.013320157454658, Accuracy: 64.67469590268887
+Test - Epoch: 15, Loss: 1.2458555515289307, Accuracy: 55.88999999999999
+Classifier - Epoch: 16, Loss: 0.9943602291936301, Accuracy: 64.85075224071703
+Test - Epoch: 16, Loss: 1.2661196195602418, Accuracy: 55.71
+Classifier - Epoch: 17, Loss: 0.9761408640503425, Accuracy: 65.81706145966709
+Test - Epoch: 17, Loss: 1.2420464210510254, Accuracy: 56.48
+Classifier - Epoch: 18, Loss: 0.9581337228474636, Accuracy: 66.51128361075544
+Test - Epoch: 18, Loss: 1.275127338218689, Accuracy: 55.059999999999995
+Classifier - Epoch: 19, Loss: 0.9420453860649837, Accuracy: 66.99543854033291
+Test - Epoch: 19, Loss: 1.2534779359817505, Accuracy: 56.45
+Classifier - Epoch: 20, Loss: 0.9279531938203929, Accuracy: 67.6756562099872
+Test - Epoch: 20, Loss: 1.3243357183456421, Accuracy: 54.05
+*** SLURM BATCH JOB 'CLR_Run' DONE ***
