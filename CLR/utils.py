@@ -30,31 +30,23 @@ class MNISTPair(MNIST):
         return x1, x2, y
 
 
-def NTXentLoss(out1, out2, temperature=0.1):
-    """
-    Calculates the NT-Xent loss for self-supervised learning.
-    """
-    batch_size = out1.size(0)
-    out = torch.cat([out1, out2], dim=0)
+def NTXentLoss(out1, out2, temperature=0.1, device='cpu'):
+    out1 = F.normalize(out1, p=2, dim=-1)  # Explicit normalization
+    out2 = F.normalize(out2, p=2, dim=-1)
 
-    similarity_matrix = torch.exp(torch.mm(out, out.t().contiguous()) / temperature)
-    mask = (torch.ones_like(similarity_matrix) - torch.eye(2 * batch_size, device=similarity_matrix.device)).bool()
-    similarity_matrix = similarity_matrix.masked_select(mask).view(2 * batch_size, -1)
+    # Compute similarity matrix more efficiently
+    sim_matrix = torch.einsum('nc,mc->nm', out1, out2) / temperature
+    labels = torch.arange(out1.size(0), device=device)
 
-    pos_sim = torch.exp(torch.sum(out1 * out2, dim=-1) / temperature)
-    pos_sim = torch.cat([pos_sim, pos_sim], dim=0)
-
-    loss = (-torch.log(pos_sim / similarity_matrix.sum(dim=-1))).mean()
-
+    loss = F.cross_entropy(sim_matrix, labels)
     return loss
 
 
 CIFAR10_train_transform = transforms.Compose([
-    transforms.RandomResizedCrop(32, scale=(0.2, 1.0)), 
+    transforms.RandomResizedCrop(32),
     transforms.RandomHorizontalFlip(p=0.5),
     transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),
     transforms.RandomGrayscale(p=0.2),
-    transforms.RandomApply([transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0))], p=0.5),
     transforms.ToTensor(),
     transforms.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
 ])
@@ -69,11 +61,10 @@ MNIST_train_transform = transforms.Compose([
 
 CIFAR10_test_transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])])
+])
 
 MNIST_test_transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,))
 ])
 
 

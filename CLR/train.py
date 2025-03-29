@@ -2,7 +2,7 @@ from tqdm import tqdm
 import torch
 
 
-def train_epoch(model, train_loader, optimizer, loss_fn, temperature, device):
+def train_epoch(model, train_loader, optimizer, loss_fn, temperature, device, scheduler):
     model.train()
     epoch_loss, epoch_total = 0.0, 0
     for x1, x2, _ in train_loader:
@@ -10,10 +10,11 @@ def train_epoch(model, train_loader, optimizer, loss_fn, temperature, device):
         out1 = model(x1)
         out2 = model(x2)
 
-        loss = loss_fn(out1, out2, temperature)
+        loss = loss_fn(out1, out2, temperature, device)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        scheduler.step()
 
         batch_size = out1.size(0)
         epoch_total += batch_size

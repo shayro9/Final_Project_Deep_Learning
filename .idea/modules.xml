@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Downloads/CLR/.idea/CLR.iml" filepath="$USER_HOME$/Downloads/CLR/.idea/CLR.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Final_Project_Deep_Learning.iml" filepath="$PROJECT_DIR$/.idea/Final_Project_Deep_Learning.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../School/Deep/hw1_w25/.idea/hw1_w25.iml" filepath="$PROJECT_DIR$/../../School/Deep/hw1_w25/.idea/hw1_w25.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../School/Deep/hw2_2024/.idea/hw2_2024.iml" filepath="$PROJECT_DIR$/../../School/Deep/hw2_2024/.idea/hw2_2024.iml" />

@@ -9,11 +9,11 @@ CIFAR10_transform = transforms.Compose([
 ])
 
 CIFAR10_train_transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomResizedCrop(32, scale=(0.2, 1.0)),
-    transforms.RandomApply([transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)], p=0.8),
+    transforms.RandomResizedCrop(32, scale=(0.08, 1.0)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomApply([transforms.ColorJitter(0.6, 0.6, 0.6, 0.2)], p=0.8),
     transforms.RandomGrayscale(p=0.2),
-    transforms.RandomApply([transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0))], p=0.5),
+    transforms.RandomApply([transforms.GaussianBlur(kernel_size=3)], p=0.5),
     transforms.ToTensor(),
 ])
 

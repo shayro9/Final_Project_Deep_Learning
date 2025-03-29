@@ -1,65 +1,80 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models.resnet import resnet50
+from torchvision.models.resnet import resnet18
 
 
 class CLR(nn.Module):
-    def __init__(self, in_channels=3, latent_dim=128, hidden_dim=256, num_classes=10):
+    def __init__(self, in_channels=3, latent_dim=128, hidden_dim=2048, num_classes=10):
         super(CLR, self).__init__()
 
-        self.encoder = []
-
-        for name, module in resnet50(weights=None).named_children():
-            if name == 'conv1':
-                module = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
-            if not isinstance(module, nn.Linear):
-                self.encoder.append(module)
-
-        self.encoder = nn.Sequential(*self.encoder)
-
         # self.encoder = nn.Sequential(
-        #     nn.Conv2d(in_channels, 32, kernel_size=3, stride=1, padding=1),
-        #     nn.BatchNorm2d(32),
-        #     nn.ReLU(inplace=True),
-        #
-        #     nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
-        #     nn.BatchNorm2d(64),
-        #     nn.ReLU(inplace=True),
-        #
+        #     nn.Conv2d(in_channels, 64, kernel_size=3, stride=1, padding=1),
+        #     nn.ReLU(),
+        #     nn.MaxPool2d(2),
+
         #     nn.Conv2d(64, latent_dim, kernel_size=3, stride=1, padding=1),
-        #     nn.BatchNorm2d(latent_dim),
-        #     nn.ReLU(inplace=True),
-        #
-        #     nn.AdaptiveAvgPool2d((1, 1))
+        #     nn.ReLU(),
+        #     nn.MaxPool2d(2),
+
+        #     nn.Conv2d(latent_dim, latent_dim, kernel_size=3, stride=1, padding=1),
+        #     nn.ReLU(),
+        #     nn.AdaptiveAvgPool2d(1),
+
+        #     nn.Flatten()
         # )
 
+        self.encoder = resnet18(weights=None)
+        self.feature_dim = self.encoder.fc.in_features
+
+        self.encoder.conv1 = nn.Conv2d(in_channels, 64, 3, 1, 1, bias=False)
+        self.encoder.maxpool = nn.Identity()
+        self.encoder.fc = nn.Identity()
+
         self.projection = nn.Sequential(
-            nn.Linear(2048, 512, bias=False),
-            nn.BatchNorm1d(512),
-            nn.ReLU(inplace=True),
-            nn.Linear(512, 256, bias=False),
-            nn.BatchNorm1d(256),
-            nn.ReLU(inplace=True),
-            nn.Linear(256, latent_dim, bias=True)
+            nn.Linear(self.feature_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim),
         )
 
         self.classifier = nn.Sequential(
-            nn.Linear(2048, hidden_dim),
+            nn.Linear(self.feature_dim, hidden_dim),
             nn.BatchNorm1d(hidden_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.2),
             nn.Linear(hidden_dim, num_classes)
         )
 
+        # self.classifier = nn.Sequential(
+        #     nn.Linear(latent_dim, hidden_dim),
+        #     nn.BatchNorm1d(hidden_dim),
+        #     nn.ReLU(inplace=True),
+        #     nn.Dropout(p=0.3),
+        #
+        #     nn.Linear(hidden_dim, hidden_dim//2),
+        #     nn.BatchNorm1d(hidden_dim//2),
+        #     nn.ReLU(inplace=True),
+        #     nn.Dropout(p=0.3),
+        #
+        #     nn.Linear(hidden_dim // 2, hidden_dim // 4),
+        #     nn.BatchNorm1d(hidden_dim // 4),
+        #     nn.ReLU(inplace=True),
+        #     nn.Dropout(p=0.3),
+        #
+        #     nn.Linear(hidden_dim // 4, hidden_dim // 8),
+        #     nn.BatchNorm1d(hidden_dim // 8),
+        #     nn.ReLU(inplace=True),
+        #     nn.Dropout(p=0.3),
+        #
+        #     nn.Linear(hidden_dim//8, num_classes)
+        # )
+
     def forward(self, x):
         h = self.encoder(x)
-        feature = torch.flatten(h, start_dim=1)
-        out = self.projection(feature)
+        out = self.projection(h)
         return F.normalize(out, dim=-1)
 
     def classify(self, x):
         h = self.encoder(x)
-        feature = torch.flatten(h, start_dim=1)
-        out = self.classifier(feature)
+        out = self.classifier(h)
         return out
